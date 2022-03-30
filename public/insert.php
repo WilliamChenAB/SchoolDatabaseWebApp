@@ -6,11 +6,11 @@ if (isset($_POST['submit'])) {
     $connection = new PDO($dsn, $username, $password, $options);
 
     $new_player = array(
-      "firstname" => $_POST['firstname'],
-      "lastname"  => $_POST['lastname'],
-      "email"     => $_POST['email'],
-      "age"       => $_POST['age'],
-      "location"  => $_POST['location']
+      "pid"          => $_POST['pid'],
+      "name"         => $_POST['name'],
+      "birthday"     => $_POST['birthday'],
+      "total_goals"  => $_POST['total_goals'],
+      "position"     => $_POST['position']
     );
 
     $sql = sprintf(
@@ -34,19 +34,19 @@ if (isset($_POST['submit'])) {
   > <?php echo $_POST['firstname']; ?> successfully added.
 <?php } ?>
 
-<h2>Add a user</h2>
+<h2>Add a player</h2>
 
 <form method="post">
-  <label for="firstname">First Name</label>
-  <input type="text" name="firstname" id="firstname">
-  <label for="lastname">Last Name</label>
-  <input type="text" name="lastname" id="lastname">
-  <label for="email">Email Address</label>
-  <input type="text" name="email" id="email">
-  <label for="age">Age</label>
-  <input type="text" name="age" id="age">
-  <label for="location">Location</label>
-  <input type="text" name="location" id="location">
+  <label for="pid">Player Id</label>
+  <input type="number" name="pid" id="pid">
+  <label for="name">Name</label>
+  <input type="text" name="name" id="name">
+  <label for="birthday">Birthday</label>
+  <input type="text" name="birthday" id="birthday">
+  <label for="total_goals">Total Goals</label>
+  <input type="text" name="total_goals" id="total_goals">
+  <label for="position">Position</label>
+  <input type="text" name="position" id="position">
   <input type="submit" name="submit" value="Submit">
 </form>
 
