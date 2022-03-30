@@ -2,7 +2,6 @@
 
 <form method="post">
   <label for="total_goals">Total Goals</label>
-  <input type="number" name="total_goals" id="total_goals">
   <input type="number" name="ngoals" value="ngoals">
 </form>
 
@@ -14,8 +13,13 @@ try {
     // Create connection
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT P.firstname, P.lastname FROM Players P WHERE P.total_goals >= " . $_POST["ngoals"];
-    $result = $connection->query($sql);
+    $sql = "SELECT * FROM Players P WHERE P.total_goals >= :ngoals";
+
+    $ngoals = $_POST['ngoals'];
+
+    $result = $connection->prepare($sql);
+    $result->bindParam(':ngoals', $ngoals, PDO::PARAM_STR);
+    $result->execute();
 
     if ($result->num_rows > 0) {
         // output data of each row
@@ -26,7 +30,7 @@ try {
         echo "No results found.";
     }
     $connection->close();
-    
+
 } catch(PDOException $error) {
     echo $sql . "<br>" . $error->getMessage();
 }

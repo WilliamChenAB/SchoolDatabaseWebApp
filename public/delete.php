@@ -1,13 +1,11 @@
 <?php
+require "data/config.php";
+
 if (isset($_POST['submit'])) {
+
   try {
-    require "data/config.php";
-
     $connection = new PDO($dsn, $username, $password, $options);
-
-    $sql = "DELETE *
-    FROM Rinks
-    WHERE address = :address";
+    $sql = "DELETE * FROM Rinks WHERE address = :address";
 
     $address = $_POST['address'];
 
@@ -21,22 +19,6 @@ if (isset($_POST['submit'])) {
 }
 ?>
 <?php require "templates/header.php"; ?>
-
-<?php
-  try {
-    require "data/config.php";
-
-    $connection = new PDO($dsn, $username, $password, $options);
-
-    $sql = "SELECT * FROM Rinks";
-
-    $prep = $connection->prepare($sql);
-    $prep->execute();
-    $result = $prep->fetchAll();
-  } catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
-  }
-?>
     <h2>Avaliable Rinks To DELETE</h2>
 
     <table>
@@ -48,7 +30,20 @@ if (isset($_POST['submit'])) {
         </tr>
       </thead>
       <tbody>
-  <?php foreach ($result as $row) { ?>
+  <?php
+  try {
+  
+    $connection = new PDO($dsn, $username, $password, $options);
+    $sql2 = "SELECT * FROM Rinks";
+  
+    $prep = $connection->prepare($sql2);
+    $prep->execute();
+    $result = $prep->fetchAll();
+  } catch(PDOException $error) {
+    echo "<br>" . $error->getMessage();
+  }
+
+  foreach ($result as $row) { ?>
       <tr>
         <td><?php echo escape($row["address"]); ?></td>
         <td><?php echo escape($row["rnum"]); ?></td>
