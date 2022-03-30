@@ -1,18 +1,18 @@
 <?php
 require "data/config.php";
 
+function escape($html) {
+  return htmlspecialchars($html, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
+}
+
 if (isset($_POST['submit'])) {
 
   try {
     $connection = new PDO($dsn, $username, $password, $options);
-    $sql = "DELETE * FROM Rinks WHERE address = :address";
-
-    $address = $_POST['address'];
+    $sql = "DELETE FROM Rinks WHERE address =  '" . $_POST['address'] ."'";
 
     $statement = $connection->prepare($sql);
-    $statement->bindParam(':address', $address, PDO::PARAM_STR);
     $statement->execute();
-
   } catch(PDOException $error) {
     echo $sql . "<br>" . $error->getMessage();
   }
@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
 
 <form method="post">
   <label for="address">Address</label>
-  <input type="text" id="address" name="laddress">
+  <input type="text" id="address" name="address">
   <input type="submit" name="submit" value="View Results">
 </form>
 
