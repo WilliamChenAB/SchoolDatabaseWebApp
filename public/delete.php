@@ -1,10 +1,6 @@
 <?php
 require "data/config.php";
 
-function escape($html) {
-  return htmlspecialchars($html, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
-}
-
 if (isset($_POST['submit'])) {
 
   try {
@@ -45,9 +41,9 @@ if (isset($_POST['submit'])) {
 
   foreach ($result as $row) { ?>
       <tr>
-        <td><?php echo escape($row["address"]); ?></td>
-        <td><?php echo escape($row["rnum"]); ?></td>
-        <td><?php echo escape($row["rink_standard"]); ?></td>
+        <td><?php echo $row["address"]; ?></td>
+        <td><?php echo $row["rnum"]; ?></td>
+        <td><?php echo $row["rink_standard"]; ?></td>
       </tr>
     <?php } ?>
       </tbody>
