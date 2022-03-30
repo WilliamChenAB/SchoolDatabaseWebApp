@@ -40,7 +40,8 @@ CREATE TABLE Players (
 
 CREATE TABLE Cities(
 	city VARCHAR(20),
-	country VARCHAR(20)
+	country VARCHAR(20),
+	PRIMARY KEY (city)
 );
 
 CREATE TABLE Venues (
@@ -49,7 +50,7 @@ CREATE TABLE Venues (
 	capacity INTEGER,
 	city VARCHAR(20),
 	PRIMARY KEY (address),
-	FOREIGN KEY (city) REFERENCES Cities ON DELETE SET NULL
+	FOREIGN KEY (city) REFERENCES Cities(city) ON DELETE SET NULL
 );
 
 CREATE TABLE Rink_sizes(
@@ -65,9 +66,9 @@ CREATE TABLE Rinks(
 	rink_standard VARCHAR(50),
 	city VARCHAR(20),
 	PRIMARY KEY (address, rnum),
-	FOREIGN KEY (address) REFERENCES Venues ON DELETE CASCADE,
-	FOREIGN KEY (rink_standard) REFERENCES Rink_sizes ON DELETE SET NULL,
-	FOREIGN KEY (city) REFERENCES Cities ON DELETE SET NULL
+	FOREIGN KEY (address) REFERENCES Venues(address) ON DELETE CASCADE,
+	FOREIGN KEY (rink_standard) REFERENCES Rink_sizes(rink_standard) ON DELETE SET NULL,
+	FOREIGN KEY (city) REFERENCES Cities(city) ON DELETE SET NULL
 );
 
 CREATE TABLE Events (
@@ -77,7 +78,7 @@ CREATE TABLE Events (
 	date_and_time TIMESTAMP,
 	duration INTEGER,
 	PRIMARY KEY (eid),
-	FOREIGN KEY (address, rnum) REFERENCES Rinks ON DELETE CASCADE,
+	FOREIGN KEY (address, rnum) REFERENCES Rinks(address, rnum) ON DELETE CASCADE,
 	UNIQUE (address, rnum, date_and_time)
 );
 
@@ -88,7 +89,7 @@ CREATE TABLE Teams (
 	num_losses INTEGER,
 	city VARCHAR(20),
 	PRIMARY KEY (tid),
-	FOREIGN KEY (city) REFERENCES Cities ON DELETE SET NULL
+	FOREIGN KEY (city) REFERENCES Cities(city) ON DELETE SET NULL
 );
 
 CREATE TABLE Sponsorship (
@@ -97,8 +98,8 @@ CREATE TABLE Sponsorship (
 	sign_date DATE,
 	donation INTEGER,
 	PRIMARY KEY (sid, tid),
-	FOREIGN KEY (sid) REFERENCES Sponsors ON DELETE CASCADE,
-	FOREIGN KEY (tid) REFERENCES Teams ON DELETE CASCADE
+	FOREIGN KEY (sid) REFERENCES Sponsors(sid) ON DELETE CASCADE,
+	FOREIGN KEY (tid) REFERENCES Teams(tid) ON DELETE CASCADE
 );
 
 CREATE TABLE Manages (
@@ -108,8 +109,8 @@ CREATE TABLE Manages (
 	salary INTEGER,
 	PRIMARY KEY (mid),
 	UNIQUE (tid),
-	FOREIGN KEY (mid) REFERENCES Managers ON DELETE CASCADE,
-	FOREIGN KEY (tid) REFERENCES Teams ON DELETE CASCADE
+	FOREIGN KEY (mid) REFERENCES Managers(mid) ON DELETE CASCADE,
+	FOREIGN KEY (tid) REFERENCES Teams(tid) ON DELETE CASCADE
 );
 
 CREATE TABLE Coaches_for (
@@ -118,8 +119,8 @@ CREATE TABLE Coaches_for (
 	sign_date DATE,
 	salary INTEGER,
 	PRIMARY KEY (cid),
-	FOREIGN KEY (cid) REFERENCES Coaches ON DELETE CASCADE,
-	FOREIGN KEY (tid) REFERENCES Teams ON DELETE CASCADE
+	FOREIGN KEY (cid) REFERENCES Coaches(cid) ON DELETE CASCADE,
+	FOREIGN KEY (tid) REFERENCES Teams(tid) ON DELETE CASCADE
 );
 
 CREATE TABLE Referees_at (
@@ -128,8 +129,8 @@ CREATE TABLE Referees_at (
 	sign_date DATE,
 	salary INTEGER,
 	PRIMARY KEY (rid),
-	FOREIGN KEY (rid) REFERENCES Referees ON DELETE CASCADE,
-	FOREIGN KEY (address) REFERENCES Venues ON DELETE CASCADE
+	FOREIGN KEY (rid) REFERENCES Referees(rid) ON DELETE CASCADE,
+	FOREIGN KEY (address) REFERENCES Venues(address) ON DELETE CASCADE
 );
 
 CREATE TABLE Plays_with (
@@ -138,8 +139,8 @@ CREATE TABLE Plays_with (
 	sign_date DATE,
 	salary INTEGER,
 	PRIMARY KEY (pid),
-	FOREIGN KEY (pid) REFERENCES Players ON DELETE CASCADE,
-	FOREIGN KEY (tid) REFERENCES Teams ON DELETE CASCADE
+	FOREIGN KEY (pid) REFERENCES Players(pid) ON DELETE CASCADE,
+	FOREIGN KEY (tid) REFERENCES Teams(tid) ON DELETE CASCADE
 );
 
 CREATE TABLE Participates_in (
@@ -148,8 +149,8 @@ CREATE TABLE Participates_in (
 	num_goals INTEGER,
 	time_played INTEGER,
 	PRIMARY KEY (pid, eid),
-	FOREIGN KEY (pid) REFERENCES Players ON DELETE CASCADE,
-	FOREIGN KEY (eid) REFERENCES Events ON DELETE CASCADE
+	FOREIGN KEY (pid) REFERENCES Players(pid) ON DELETE CASCADE,
+	FOREIGN KEY (eid) REFERENCES Events(eid) ON DELETE CASCADE
 );
 
 CREATE TABLE Games (
@@ -158,17 +159,17 @@ CREATE TABLE Games (
 	tid_2 INTEGER,
 	winner INTEGER,
 	PRIMARY KEY (eid),
-	FOREIGN KEY (tid_1) REFERENCES Teams ON DELETE SET NULL,
-	FOREIGN KEY (tid_2) REFERENCES Teams ON DELETE SET NULL,
-	FOREIGN KEY (eid) REFERENCES Events ON DELETE CASCADE
+	FOREIGN KEY (tid_1) REFERENCES Teams(tid) ON DELETE SET NULL,
+	FOREIGN KEY (tid_2) REFERENCES Teams(tid) ON DELETE SET NULL,
+	FOREIGN KEY (eid) REFERENCES Events(eid) ON DELETE CASCADE
 );
 
 CREATE TABLE Practices (
 	eid INTEGER,
 	tid INTEGER,
 	PRIMARY KEY (eid),
-	FOREIGN KEY (eid) REFERENCES Events ON DELETE CASCADE,
-	FOREIGN KEY (tid) REFERENCES Teams ON DELETE CASCADE
+	FOREIGN KEY (eid) REFERENCES Events(eid) ON DELETE CASCADE,
+	FOREIGN KEY (tid) REFERENCES Teams(tid) ON DELETE CASCADE
 );
 
 INSERT INTO Sponsors(sid, name)
@@ -181,35 +182,35 @@ VALUES
 
 INSERT INTO Managers(mid, name, birthday)
 VALUES
-(1, 'Naomi Nagata', '1-1-1970'),
-(2, 'James Holden', '1-1-1970'),
-(3, 'Amos Burton', '1-1-1970'),
-(4, 'Alex Kamal', '1-1-1970'),
-(5, 'Bobbie Draper', '1-1-1970');
+(1, 'Naomi Nagata', '1970-01-01'),
+(2, 'James Holden', '1970-01-01'),
+(3, 'Amos Burton', '1970-01-01'),
+(4, 'Alex Kamal', '1970-01-01'),
+(5, 'Bobbie Draper', '1970-01-01');
 
 INSERT INTO Coaches(cid, name, birthday)
 VALUES
-(1, 'Bryan Edgecombe', '9-9-1998'),
-(2, 'Sean Bocirnea', '12-28-2001'),
-(3, 'William Chen', '8-24-2001'),
-(4, 'Robert Paulson', '1-1-1970'),
-(5, 'Gilbert Gottfried', '1-1-1970');
+(1, 'Bryan Edgecombe', '1970-01-01'),
+(2, 'Sean Bocirnea', '1970-01-01'),
+(3, 'William Chen', '1970-01-01'),
+(4, 'Robert Paulson', '1970-01-01'),
+(5, 'Gilbert Gottfried', '1970-01-01');
 
 INSERT INTO Referees(rid, name, birthday)
 VALUES
-(1, 'Harry Potter', '1-1-19700'),
-(2, 'Hermionie Granger', '1-1-1970'),
-(3, 'Ronald Weasley', '1-1-1970'),
-(4, 'Rubeus Hagrid', '1-1-1970'),
-(5, 'Draco Malfoy', '9-11-2001');
+(1, 'Harry Potter', '1970-01-010'),
+(2, 'Hermionie Granger', '1970-01-01'),
+(3, 'Ronald Weasley', '1970-01-01'),
+(4, 'Rubeus Hagrid', '1970-01-01'),
+(5, 'Draco Malfoy', '1970-01-01');
 
 INSERT INTO Players(pid, name, birthday, total_goals, position)
 VALUES
-(1, 'Albert Albertson', '1-1-1970', 4, goalie),
-(2, 'Todd Toddson', '1-1-1970', 1024, offense),
-(3, 'Matt Mattson', '1-1-1970', 2048, offense),
-(4, 'John Johnson', '1-1-1970', 256, defense),
-(5, 'Pat Patterson', '1-1-1970', 512, defense);
+(1, 'Albert Albertson', '1970-01-01', 4, "goalie"),
+(2, 'Todd Toddson', '1970-01-01', 1024, "offense"),
+(3, 'Matt Mattson', '1970-01-01', 2048, "offense"),
+(4, 'John Johnson', '1970-01-01', 256, "defense"),
+(5, 'Pat Patterson', '1970-01-01', 512, "defense");
 
 INSERT INTO Cities(city, country)
 VALUES
@@ -230,10 +231,10 @@ VALUES
 INSERT INTO Venues(address, name, capacity, city)
 VALUES
 ('123 Granville St.', 'Corporate Arena', 2000, 'Vancouver'),
-('987 Main St.', 'Sucker''s Stadium', 1000, 'Calgary'),
+('987 Main St.', 'Suckers Stadium', 1000, 'Calgary'),
 ('4022 16th Ave.', 'The Place', 420, 'Vancouver'),
 ('5423 18th Ave.', 'The Other Place', 420, 'Vancouver'),
-('123 Mian St.', 'Mom''s Basement', 1, 'Toronto');
+('123 Main St.', 'Moms Basement', 1, 'Toronto');
 
 INSERT INTO Rink_sizes(rink_standard, rink_width, rink_length)
 VALUES
@@ -285,35 +286,35 @@ VALUES
 
 INSERT INTO Manages(mid, tid, sign_date, salary)
 VALUES
-(1, 1003, '1-1-1970', 1),
-(2, 1004, '1-1-1970', 4),
-(3, 1002, '1-1-1970', 42),
-(4, 1005, '1-1-1970', 1337),
-(5, 1001, '1-1-1970', 1738);
+(1, 1003, '1970-01-01', 1),
+(2, 1004, '1970-01-01', 4),
+(3, 1002, '1970-01-01', 42),
+(4, 1005, '1970-01-01', 1337),
+(5, 1001, '1970-01-01', 1738);
 
 INSERT INTO Coaches_for(cid, tid, sign_date, salary)
 VALUES
-(1, 1003, '1-1-1970', 1),
-(2, 1004, '1-1-1970', 4),
-(3, 1002, '1-1-1970', 42),
-(4, 1005, '1-1-1970', 1337),
-(5, 1001, '1-1-1970', 1738);
+(1, 1003, '1970-01-01', 1),
+(2, 1004, '1970-01-01', 4),
+(3, 1002, '1970-01-01', 42),
+(4, 1005, '1970-01-01', 1337),
+(5, 1001, '1970-01-01', 1738);
 
 INSERT INTO Referees_at(rid, address, sign_date, salary)
 VALUES
-(1, '123 Granville St.', '1-1-1970', 1),
-(2, '987 Main St.', '1-1-1970', 4),
-(3, '4022 16th Ave.', '1-1-1970', 42),
-(4, '5423 18th Ave.', '1-1-1970', 1337),
-(5, '123 Main St.', '1-1-1970', 1738);
+(1, '123 Granville St.', '1970-01-01', 1),
+(2, '987 Main St.', '1970-01-01', 4),
+(3, '4022 16th Ave.', '1970-01-01', 42),
+(4, '5423 18th Ave.', '1970-01-01', 1337),
+(5, '123 Main St.', '1970-01-01', 1738);
 
 INSERT INTO Plays_with(pid, tid, sign_date, salary)
 VALUES
-(1, 1003, '1-1-1970', 1),
-(2, 1004, '1-1-1970', 4),
-(3, 1002, '1-1-1970', 42),
-(4, 1005, '1-1-1970', 1337),
-(5, 1001, '1-1-1970', 1738);
+(1, 1003, '1970-01-01', 1),
+(2, 1004, '1970-01-01', 4),
+(3, 1002, '1970-01-01', 42),
+(4, 1005, '1970-01-01', 1337),
+(5, 1001, '1970-01-01', 1738);
 
 INSERT INTO Participates_in(pid, eid, num_goals, time_played)
 VALUES
