@@ -2,8 +2,13 @@
 
 <form method="post">
   <label for="column">Column</label>
-  <input type="text" name="column" value="column">
-  <input type="submit" name="submit" value="Submit">
+  <select name="column">
+    <option value="address">Address</option>
+    <option value="name">Name</option>
+    <option value="capacity">Capacity</option>
+    <option value="city">City</option>
+  </select>
+  <input type="submit" name="submit" value="View Results">
 </form>
 
 <?php
@@ -21,25 +26,20 @@ if (isset($_POST['submit'])) {
         // Create connection
         $connection = new PDO($dsn, $username, $password, $options);
 
-        $sql = "SELECT :column FROM Venues";
         $col = $_POST['column'];
+        $sql = "SELECT $col FROM Venues";
 
         $result = $connection->prepare($sql);
-        $result->bindParam(':column', $col, PDO::PARAM_STR);
         $result->execute();
 
         $data = $result->fetchAll();
-
-        echo $col;
 
         if ($data && $result->rowCount() > 0) { ?>
             <h2>Results</h2>
         
             <table>
               <thead>
-                <tr>
-                <?php TestInsertRow($col); ?>
-                </tr>
+                <tr><th> <?php echo $col; ?> </th></tr>
               </thead>
               <tbody>
           <?php foreach ($data as $row) { ?>
@@ -50,8 +50,7 @@ if (isset($_POST['submit'])) {
               </tbody>
           </table>
           <?php } else { ?>
-            > No results found for <?php echo $col; ?>.
-          
+            No results found for <?php echo $col; ?>.
           <?php }
 
     } catch (PDOException $error) {
