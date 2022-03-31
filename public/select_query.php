@@ -1,7 +1,7 @@
 <?php require "templates/header.php"; ?>
 
 <form method="post">
-  <label for="total_goals">Total Goals</label>
+  <label for="total_goals">Select players with at least the following number of goals:</label>
   <input type="number" name="ngoals" value="ngoals">
   <input type="submit" name="submit" value="Submit">
 </form>
