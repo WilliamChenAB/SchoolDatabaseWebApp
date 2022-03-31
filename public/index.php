@@ -4,6 +4,7 @@
     <li> <a href="data/init.php"><strong>Initialize Database</strong></a></li>
     <li> <a href="insert.php"><strong>Insert</strong></a> - add a user </li>
     <li> <a href="delete.php"><strong>Delete</strong></a> - delete a rink </li>
+    <li> <a href="update.php"><strong>Update</strong></a> - rename a team </li>
     <li> <a href="join_query.php"><strong>Join</strong></a> - find size of rinks </li>
     <li> <a href="projection_query.php"><strong>Projection</strong></a> </li>
     <li> <a href="select_query.php"><strong>Select</strong></a> - Select players with more than n goals </li>
