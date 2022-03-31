@@ -5,9 +5,12 @@ if (isset($_POST['submit'])) {
 
   try {
     $connection = new PDO($dsn, $username, $password, $options);
-    $sql = "DELETE FROM Rinks WHERE address =  '" . $_POST['address'] ."'";
+    $sql = "DELETE FROM Rinks WHERE address = :address";
+    
+    $address = $_POST['address'];
 
     $statement = $connection->prepare($sql);
+    $statement->bindParam(':address', $address, PDO::PARAM_STR);
     $statement->execute();
   } catch(PDOException $error) {
     echo $sql . "<br>" . $error->getMessage();

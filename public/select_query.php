@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
         $ngoals = $_POST['ngoals'];
 
         $result = $connection->prepare($sql);
-        $result->bindParam(':ngoals', $ngoals, PDO::PARAM_STR);
+        $result->bindParam(':ngoals', $ngoals, PDO::PARAM_INT);
         $result->execute();
 
         $data = $result->fetchAll();

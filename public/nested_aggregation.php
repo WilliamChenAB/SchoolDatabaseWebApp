@@ -6,9 +6,12 @@ if (isset($_POST['submit'])) {
 
 try {
     $connection = new PDO($dsn, $username, $password, $options);
-    $sql = "SELECT position, AVG(total_goals) FROM Players GROUP BY position";
+    $sql = "SELECT position, AVG(total_goals) FROM Players WHERE total_goals >= :min GROUP BY position";
+
+    $min = $_POST['min'];
 
     $statement = $connection->prepare($sql);
+    $statement->bindParam(':min', $min, PDO::PARAM_INT);
     $statement->execute();
     $result = $statement->fetchAll();
 } catch(PDOException $error) {
@@ -36,9 +39,11 @@ try {
   </table>
 <?php } ?>
 
-<h2>View average goals per position</h2>
+<h2>View average goals per position, where considered players have at least Min goals</h2>
 
 <form method="post">
+  <label for="min">Min</label>
+  <input type="number" id="min" name="min">
   <input type="submit" name="submit" value="View Results">
 </form>
 
