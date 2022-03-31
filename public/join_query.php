@@ -1,15 +1,7 @@
 <!-- Join teams and venues (both have cities in common?)-->
-
-<?php require "templates/header.php"; ?>
-
-<form method="post">
-  <label for="rink_standard">Rink Standard</label>
-  <input type="number" name="wclause" value="wclause">
-  <input type="submit" name="submit" value="Submit">
-</form>
-
 <?php
 
+require "templates/header.php";
 require "data/config.php";
 
 function rinksTable ($result, $tableName, $extraDetail) {
@@ -91,7 +83,5 @@ if (isset($_POST['submit'])) {
   <input type="text" id="address" name="address">
   <input type="submit" name="submit" value="View Results">
 </form>
-
-<?php require "templates/footer.php"; ?>
 
 <?php require "templates/footer.php"; ?>
