@@ -2,41 +2,61 @@
 
 <form method="post">
   <label for="column">Column</label>
-  <input type="text" name="column" id="column">
   <input type="text" name="column" value="column">
+  <input type="submit" name="submit" value="Submit">
 </form>
 
 <?php
 
 require "data/config.php";
 
-try {
-    // Create connection
-    $connection = new PDO($dsn, $username, $password, $options);
-    
-    $col = $_POST["column"];
+function TestInsertRow ($str) {
+    echo '<th>';
+    echo $str;
+    echo '</th>';
+}
 
-    $sql = "SELECT " . $_POST["column"] . " FROM Venues";
-    $result = $connection->query($sql);
+if (isset($_POST['submit'])) {
+    try {
+        // Create connection
+        $connection = new PDO($dsn, $username, $password, $options);
 
-    if ($col != "address" and $col != "name" and $col != "capacity") {
-        echo "Invalid column.";
-    } else if ($_POST["column"] == "name") {
+        $sql = "SELECT :column FROM Venues";
+        $col = $_POST['column'];
 
-        if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-                echo "<br>". $row[$col] . "<br>";
-            }
-        } else {
-            echo "No results found.";
-        }
+        $result = $connection->prepare($sql);
+        $result->bindParam(':column', $col, PDO::PARAM_STR);
+        $result->execute();
 
+        $data = $result->fetchAll();
+
+        echo $col;
+
+        if ($data && $result->rowCount() > 0) { ?>
+            <h2>Results</h2>
+        
+            <table>
+              <thead>
+                <tr>
+                <?php TestInsertRow($col); ?>
+                </tr>
+              </thead>
+              <tbody>
+          <?php foreach ($data as $row) { ?>
+              <tr>
+                <td><?php echo $row[$col]; ?></td>
+              </tr>
+            <?php } ?>
+              </tbody>
+          </table>
+          <?php } else { ?>
+            > No results found for <?php echo $col; ?>.
+          
+          <?php }
+
+    } catch (PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
     }
-    $connection->close();
-
-} catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
 }
 ?>
 

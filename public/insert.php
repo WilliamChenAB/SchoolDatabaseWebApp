@@ -1,7 +1,7 @@
 <?php
-if (isset($_POST['submit'])) {
-  require "data/config.php";
+require "data/config.php";
 
+if (isset($_POST['submit'])) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
 
@@ -29,11 +29,43 @@ if (isset($_POST['submit'])) {
 ?>
 
 <?php require "templates/header.php"; ?>
+    <h2>Extant Players</h2>
 
-<?php if (isset($_POST['submit']) && $statement) { ?>
-  > <?php echo $_POST['firstname']; ?> successfully added.
-<?php } ?>
+    <table>
+      <thead>
+        <tr>
+        <th>Player Id</th>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Total Goals</th>
+        <th>Position</th>
+        </tr>
+      </thead>
+      <tbody>
+  <?php
+  try {
+  
+    $connection = new PDO($dsn, $username, $password, $options);
+    $sql2 = "SELECT * FROM Players";
+  
+    $prep = $connection->prepare($sql2);
+    $prep->execute();
+    $result = $prep->fetchAll();
+  } catch(PDOException $error) {
+    echo "<br>" . $error->getMessage();
+  }
 
+  foreach ($result as $row) { ?>
+      <tr>
+        <td><?php echo $row["pid"]; ?></td>
+        <td><?php echo $row["name"]; ?></td>
+        <td><?php echo $row["birthday"]; ?></td>
+        <td><?php echo $row["total_goals"]; ?></td>
+        <td><?php echo $row["position"]; ?></td>
+      </tr>
+    <?php } ?>
+      </tbody>
+  </table>
 <h2>Add a player</h2>
 
 <form method="post">
