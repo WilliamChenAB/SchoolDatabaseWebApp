@@ -9,6 +9,7 @@ try {
     $sql = "SELECT P.name, W.salary, T.name
             FROM Players P, Plays_With W, Teams T
             WHERE P.pid = W.pid
+            AND P.tid = :ntid
             AND W.tid = :ntid
             AND W.salary = (SELECT MIN(salary) FROM Plays_With WHERE tid = :ntid)";
 
