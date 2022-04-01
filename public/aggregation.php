@@ -6,11 +6,11 @@ if (isset($_POST['submit'])) {
 
 try {
     $connection = new PDO($dsn, $username, $password, $options);
-    $sql = "SELECT P.name, W.salary, T.name
+    $sql = "SELECT P.name, W.salary, T.name AS tname
             FROM Players P, Plays_With W, Teams T
             WHERE P.pid = W.pid
-            AND P.tid = :ntid
             AND W.tid = :ntid
+            AND T.tid = W.tid
             AND W.salary = (SELECT MIN(salary) FROM Plays_With WHERE tid = :ntid)";
 
     $tid = $_POST['tid'];
@@ -28,9 +28,9 @@ if ($result) {
     <h2>Result:</h2>
 
     <ul>
-        <li>Player Name: <?php echo $result[0]; ?></li>
-        <li>Salary: <?php echo $result[1]; ?></li>
-        <li>Team Name: <?php echo $result[2]; ?></li>
+        <li>Player Name: <?php echo $result["name"]; ?></li>
+        <li>Salary: <?php echo $result["salary"]; ?></li>
+        <li>Team Name: <?php echo $result["tname"]; ?></li>
     </ul>
 
 <?php 
