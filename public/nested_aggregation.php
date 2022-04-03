@@ -1,6 +1,7 @@
-<?php
-require "templates/header.php";
-require "data/config.php";
+<?php require "templates/header.php"; ?>
+<h2>NESTED AGGREGATION</h2><br>
+
+<?php require "data/config.php";
 
 if (isset($_POST['submit'])) {
 

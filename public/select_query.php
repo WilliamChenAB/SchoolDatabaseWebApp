@@ -1,4 +1,5 @@
 <?php require "templates/header.php"; ?>
+<h2>SELECT</h2><br>
 
 <form method="post">
   <label for="total_goals">Select players with at least the following number of goals:</label>
@@ -42,7 +43,7 @@ if (isset($_POST['submit'])) {
               <tr>
                 <td><?php echo $row["pid"]; ?></td>
                 <td><?php echo $row["name"]; ?></td>
-                <td><?php echo "birthday"; ?></td>
+                <td><?php echo $row["birthday"]; ?></td>
                 <td><?php echo $row["total_goals"]; ?></td>
                 <td><?php echo $row["position"]; ?></td>
               </tr>

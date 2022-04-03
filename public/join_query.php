@@ -1,8 +1,8 @@
 <!-- Join teams and venues (both have cities in common?)-->
-<?php
+<?php require "templates/header.php"; ?>
+<h2>JOIN</h2><br>
 
-require "templates/header.php";
-require "data/config.php";
+<?php require "data/config.php";
 
 function rinksTable ($result, $tableName, $extraDetail) {
     $data = $result->fetchAll();
@@ -15,9 +15,9 @@ function rinksTable ($result, $tableName, $extraDetail) {
             <th>Address</th>
             <th>RNum</th>
             <th>City</th>
-            <th>Rink Standard</th>
-            <th>Rink Width</th>
-            <th>Rink Length</th>
+            <th>Rink_Standard</th>
+            <th>Rink_Width</th>
+            <th>Rink_Length</th>
             </tr>
           </thead>
           <tbody>

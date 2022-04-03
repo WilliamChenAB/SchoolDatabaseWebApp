@@ -20,7 +20,8 @@ if (isset($_POST['submit'])) {
 }
 ?>
 <?php require "templates/header.php"; ?>
-    <h2>Teams</h2>
+    <h2>UPDATE</h2><br>
+    <h2>Teams:</h2>
 
     <table>
       <thead>
@@ -58,7 +59,7 @@ if (isset($_POST['submit'])) {
       </tbody>
   </table>
 
-<h2>Delete Rink with Address</h2>
+<h2>Rename a Team</h2>
 
 <form method="post">
   <label for="ID">tid</label>

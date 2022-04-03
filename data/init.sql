@@ -92,7 +92,7 @@ CREATE TABLE Teams (
 	FOREIGN KEY (city) REFERENCES Cities(city) ON DELETE SET NULL
 );
 
-CREATE TABLE Sponsorship (
+CREATE TABLE Sponsorships (
 	sid INTEGER,
 	tid INTEGER,
 	sign_date DATE,
@@ -210,7 +210,10 @@ VALUES
 (2, 'Todd Toddson', '1970-01-01', 1024, "offense"),
 (3, 'Matt Mattson', '1970-01-01', 2048, "offense"),
 (4, 'John Johnson', '1970-01-01', 256, "defense"),
-(5, 'Pat Patterson', '1970-01-01', 512, "defense");
+(5, 'Pat Patterson', '1970-01-01', 512, "defense"),
+(6, 'Jack Jackson', '1970-01-01', 128, "defense"),
+(7, 'Rich Richardson', '1970-01-01', 256, "offense"),
+(8, 'Nick Nicholson', '1970-01-01', 256, "defense");
 
 INSERT INTO Cities(city, country)
 VALUES
@@ -276,11 +279,18 @@ VALUES
 (4, 1004),
 (5, 1001);
 
-INSERT INTO Sponsorship(sid, tid, donation)
+INSERT INTO Sponsorships(sid, tid, donation)
 VALUES
-(1, 1001, 1),
-(1, 1002, 4),
-(3, 1001, 42),
+(1, 1001, 5),
+(1, 1002, 6),
+(1, 1003, 7),
+(1, 1004, 5),
+(1, 1005, 5),
+(3, 1001, 10),
+(3, 1002, 12),
+(3, 1003, 11),
+(3, 1004, 42),
+(3, 1005, 15),
 (4, 1004, 1337),
 (5, 1005, 1738);
 
@@ -314,7 +324,10 @@ VALUES
 (2, 1004, '1970-01-01', 4),
 (3, 1002, '1970-01-01', 42),
 (4, 1005, '1970-01-01', 1337),
-(5, 1001, '1970-01-01', 1738);
+(5, 1001, '1970-01-01', 1738),
+(6, 1003, '1970-01-01', 60),
+(7, 1003, '1970-01-01', 120),
+(8, 1003, '1970-01-01', 240);
 
 INSERT INTO Participates_in(pid, eid, num_goals, time_played)
 VALUES
@@ -322,4 +335,7 @@ VALUES
 (2, 1, 2, 90),
 (3, 2, 0, 120),
 (4, 2, 4, 90),
-(5, 4, 3, 60);
+(5, 4, 3, 60),
+(6, 2, 0, 15),
+(7, 3, 0, 45),
+(8, 4, 0, 60);

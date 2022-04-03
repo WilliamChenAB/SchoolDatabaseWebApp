@@ -18,7 +18,8 @@ if (isset($_POST['submit'])) {
 }
 ?>
 <?php require "templates/header.php"; ?>
-    <h2>Avaliable Rinks To DELETE</h2>
+    <h2>DELETE</h2><br>
+    <h2>Avaliable Rinks to Delete:</h2>
 
     <table>
       <thead>

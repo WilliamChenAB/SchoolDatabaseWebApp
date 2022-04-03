@@ -29,7 +29,8 @@ if (isset($_POST['submit'])) {
 ?>
 
 <?php require "templates/header.php"; ?>
-    <h2>Extant Players</h2>
+    <h2>INSERT</h2><br>
+    <h2>Extant Players:</h2>
 
     <table>
       <thead>
@@ -76,7 +77,7 @@ if (isset($_POST['submit'])) {
   <label for="birthday">Birthday</label>
   <input type="text" name="birthday" id="birthday">
   <label for="total_goals">Total Goals</label>
-  <input type="text" name="total_goals" id="total_goals">
+  <input type="number" name="total_goals" id="total_goals">
   <label for="position">Position</label>
   <input type="text" name="position" id="position">
   <input type="submit" name="submit" value="Submit">
