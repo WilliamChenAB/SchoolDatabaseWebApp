@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\data",
+    "\\public",
+    "\\public\\css",
+    "\\public\\data",
+    "\\public\\templates"
   ],
-  "SelectedNode": "\\C:\\Users\\willi\\Desktop\\CPSC304Project",
+  "SelectedNode": "\\data\\init.sql",
   "PreviewInSolutionExplorer": false
 }
